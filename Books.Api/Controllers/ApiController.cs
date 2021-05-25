@@ -68,17 +68,5 @@ namespace Y.Api.Controllers
             return NoContent();
         }
 
-
-        [Route("getData")]
-        public IEnumerable<Book> tt()
-        {
-            //var books = await fakerestapiService.getBooksAsync();
-            List<Book> books = new List<Book>();
-            Book book = null;
-            book = new Book { id = 1, description = "klk", title = "first" };
-            books.Add(book);
-            return books;
-        }
-
     }
 }
