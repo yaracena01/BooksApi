@@ -1,0 +1,68 @@
+﻿<!-- #region code -->
+
+@page "/Books";
+@using Y.DataModels;
+@using Y.UI.Services;
+@inject IBookService _bookService;
+
+@code {
+    private IEnumerable<Book> data = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        data = await _bookService.GetBooks();
+    }
+}
+
+<!--#endregion code-->
+<!-- #region html -->
+
+<NavLink class="nav-link" href="Books/Create">
+    <span class=""></span>Add New
+</NavLink>
+
+<h3>Lista de Books</h3>
+@if (data == null)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    @if (data.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in data)
+                {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@item.title</td>
+                        <td>@item.description</td>
+                        <td>
+                            <a class="nav-link" href="Books/@item.id">
+                                Edit
+                            </a>
+                            <a class="nav-link" href="DeleteBook/@item.id">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    }
+}
+<!--#endregion html-->
